@@ -1,0 +1,37 @@
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+.daybar {
+	width: 800px;
+	height: 240px;
+	background: rgba(220,220,220,1);
+	top: 0;
+	left: 0;
+	padding: 5px 0%;
+}
+
+
+.bar {
+	background: rgba(255,0,0,0.8);
+	width: 40px;
+	height: 100%;
+	display: inline-block;
+}
+
+.first_light {
+	background: rgba(0,0,0,0.8);
+}
+.sunrise {
+	background: rgba(0,0,0,0.4)
+}
+.day {
+	background: rgba(0,0,0,0.1)	
+}
+.sunset {
+	background: rgba(0,0,0,0.4);
+}
+.last_light {
+	background: rgba(0,0,0,0.8);
+}
