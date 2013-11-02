@@ -5,7 +5,7 @@ require 'date'
 
 File.open('tide_scrape.html', 'w') do |f|
 
-	page = Nokogiri::HTML(open("http://magicseaweed.com/Newquay-Fistral-North-Surf-Report/1/"))
+	page = Nokogiri::HTML(open("http://magicseaweed.com/Ballito-Surf-Report/995/"))
 	surfspot = page.css("title").text.gsub!('Surf Report, Surf Forecast and Live Surf Webcams', '').strip
 	tide_table = page.css("table[class~='msw-tide-table']")
 	light_table = page.css("table[class~='msw-tide-stable']")
@@ -87,6 +87,11 @@ def time_to_f(time)
 		return time
 end
 
+	point1 = time_to_f(tide[first_peak][:time])  
+	point2 = time_to_f(tide[second_peak][:time])
+	point3 = time_to_f(tide[third_peak][:time])
+	point4 = time_to_f(tide[fourth_peak][:time])
+
 
 	f_light = time_to_f(light[:first_light])
 	s_rise = time_to_f(light[:sunrise]) - time_to_f(light[:first_light])
@@ -94,6 +99,15 @@ end
 	l_light = 100 -time_to_f(light[:last_light])
 
 	daylight = 100 - f_light - s_rise - s_set - l_light
+
+	def daydivs
+		array =[]
+		(1..24).each do 
+			array << "<div class='day'></div>" 
+		end
+		return array.join('')
+	end
+
 
 	f.write("
 
@@ -124,13 +138,24 @@ end
 
 
 		</div>\n\n<br>
-			<div class='daybar'><!--
-			--><div class='first_light bar' style='width:#{f_light}%'></div><!--
-			--><div class='sunrise bar' style='width:#{s_rise}%'></div><!--
-			--><div class='day bar' style='width:#{daylight}%'></div><!--
-			--><div class='sunset bar' style='width:#{s_set}%'></div><!--
-			--><div class='last_light bar' style='width:#{l_light}%'></div><!--
-			--></div>
+			<div class='daybar'>
+				<div class='point_overlay'>
+				<div class='tide_point' style='top: #{210 -(height_to_f(tide[first_peak][:height])*5)}; left: #{point1}%;'></div>
+				<div class='tide_point' style='top: #{210 -(height_to_f(tide[second_peak][:height])*5)}; left: #{point2}%;'></div>
+				<div class='tide_point' style='top: #{210 -(height_to_f(tide[third_peak][:height])*5)}; left: #{point3}%;'></div>
+				<div class='tide_point' style='top: #{210 -(height_to_f(tide[fourth_peak][:height])*5)}; left: #{point4}%;'></div>
+				</div>
+
+				<div class='time_overlay'>
+				<!--
+				--><div class='first_light bar' style='width:#{f_light}%'></div><!--
+				--><div class='sunrise bar' style='width:#{s_rise}%'></div><!--
+				--><div class='day bar' style='width:#{daylight}%'></div><!--
+				--><div class='sunset bar' style='width:#{s_set}%'></div><!--
+				--><div class='last_light bar' style='width:#{l_light}%'></div><!--
+				--></div>
+			</div>
+			<div class='hourbar'>#{daydivs}</div>
 
 		")
 

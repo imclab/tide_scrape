@@ -3,13 +3,24 @@
 	padding: 0px;
 }
 
-.daybar {
+.daybar, .hourbar {
 	width: 800px;
 	height: 240px;
 	background: rgba(220,220,220,1);
 	top: 0;
 	left: 0;
 	padding: 5px 0%;
+	position: relative;
+	display: inline-block;
+}
+
+.hourbar {
+	width: 800px;
+	height: 40px;
+	background: rgba(220,160,160,1);
+	position: relative;
+	display: inline-block;
+	z-index: -100;
 }
 
 
@@ -35,3 +46,55 @@
 .last_light {
 	background: rgba(0,0,0,0.8);
 }
+
+.point_overlay, .time_overlay{
+	position: relative;
+	/*float: left;*/
+	width: 800px;
+	top:0;
+	left: 0;
+	/*display: inline-block;*/
+}
+
+.time_overlay {
+	/*background: rgba(255,0,100,0.3);*/
+}
+.point_overlay {
+	z-index: 10000;
+	margin-left: -30px;
+}
+
+.tide_point {
+	position: absolute;
+	border-radius: 50%;
+	background-color: rgba(150,220,250,0.8);
+	height: 30px;
+	width: 30px;
+}
+
+.day {
+	background: rgba(250,50,50,0.7);
+	display: inline-block;
+	width: 33.3px;
+	height: 40px;
+}
+
+.day:nth-child(odd) {
+	background: rgba(150,50,50,0.0);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
